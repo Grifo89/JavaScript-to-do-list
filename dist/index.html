@@ -3,9 +3,46 @@
   <head>
     <meta charset="utf-8">
     <title>To-Do-List</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="custom.css">
     <script defer src="bundle" charset="utf-8"></script>
   </head>
   <body>
+    <main class="container">
+      <h1>TODO App</h1>
+      <div id="list-container">
+        <button id="new-list">New list</button>
+        <ul id="projects"></ul>
+      </div>
+      <div id="todos-container">
+        <form action="">
+          <div>
+            <label for="title">Title</label>
+            <input type="text" name="title" placeholder="TODO...">
+          </div>
 
+          <div>
+            <label for="description">Description</label>
+            <input type="text" name="description" placeholder="Display your item here">     
+          </div>
+
+          <div>
+            <label for="due-date">Due date</label>
+            <input type="date" name="due-date">     
+          </div>
+
+          <div>
+            <label for="priority">Priority</label>
+            <select name="priority">
+              <option value="high">High</option> 
+              <option value="medium" selected>Medium</option>
+              <option value="low">Low</option>
+            </select>   
+          </div>
+          <button id="new-todo">Create todo</button>
+        </form>
+        <ul id="todos"></ul>
+      </div>
+    </main>
   </body>
 </html>
