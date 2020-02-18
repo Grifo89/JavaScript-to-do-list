@@ -19,4 +19,18 @@ const domComponents = () => {
  }
 };
 
+// Renders
+
+function renderObject(objectName) {
+  const objectParent = domComponents().projects
+  objectParent.appendChild("li").addClass("project-item").textContent = objectName
+}
+
+function renderTodos(todos) {
+  todos.forEach((todo) => {
+
+  });
+
+}
+
 export default domComponents
