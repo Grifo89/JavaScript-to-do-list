@@ -1,6 +1,6 @@
-const project = (name, todo) => {
+const project = (name) => {
   let todos = []
-  const pushTodo = () => {
+  const pushTodo = (todo) => {
     todos.push(todo)
   }
   const getName = () => name
@@ -13,10 +13,12 @@ const project = (name, todo) => {
   }
 }
 
-const todos = (title, description, dueDate, priority) => {
-  const getTodo = () => ({title, description, dueDate, priority})
+const todos = (title, description, dueDate, priority, completed=false) => {
+  const getTodo = () => ({title, description, dueDate, priority, completed})
+  const changeStatus = (completed) => getTodo().completed = completed
   return {
-    getTodo
+    getTodo,
+    changeStatus
   }
 }
 

@@ -3,6 +3,7 @@ const domComponents = () => {
  const newTodo = document.getElementById('new-todo')
  const projects = document.getElementById('projects')
  const todos = document.getElementById('todos')
+ let projectTitle = document.querySelector('input[name="project-title"]')
  let title = document.querySelector('input[name="title"]')
  let description = document.querySelector('input[name="description"]')
  let dueDate = document.querySelector('input[name="due-date"]')
@@ -15,7 +16,8 @@ const domComponents = () => {
    title,
    description,
    dueDate,
-   select
+   select,
+   projectTitle
  }
 };
 
@@ -27,10 +29,41 @@ function renderObject(objectName) {
 }
 
 function renderTodos(todos) {
+  const todosParent = domComponents().todos
   todos.forEach((todo) => {
-
+    const li = document.createElement('li')
+    const div = document.createElement('div')
+    const remove = document.createElement('button')
+    const h2 = document.createElement('h2')
+    h2.addClass('todo-title')
+    h2.textContent = todo.title
+    const p = document.createElement('p')
+    p.addClass('todo-description')
+    p.textContent = todo.description
+    remove.id = 'remove'
+    remove.textContent = 'Delete'
+    const status = document.createElement('button')
+    status.id = 'status'
+    status.textContent = 'done'
+    const details = document.createElement('div')
+    details.addClass('todo-details')
+    const date = document.createElement('span')
+    date.addClass('due-date')
+    date.textContent = todo.dueDate
+    const priority = document.createElement('span')
+    priority.addClass('priority')
+    priority.textContent = todo.priority
+    details.appendChild(date)
+    details.appendChild(priority)
+    div.appendChild(remove)
+    div.appendChild(status)
+    li.appendChild(div).addClass('todo-item')
+    todosParent.appendChild(li)
   });
-
 }
 
-export default domComponents
+export default {
+  domComponents,
+  renderObject,
+  renderTodos
+}
