@@ -25,7 +25,7 @@ const todos = (title, description, dueDate, priority, completed=false) => {
     priority: priority,
     completed: completed,
   })
-  const changeStatus = (completed) => getTodo().completed = completed
+  const changeStatus = () => getTodo().completed = !getTodo().completed
   return {
     getTodo,
     changeStatus

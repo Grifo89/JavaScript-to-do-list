@@ -6,11 +6,13 @@ const createProject = () => {
   console.log(project)
   dom.renderObject(title)
   localStorage.setItem(title, project)
+ 
 }
 
-const createTodo = (projectKey) => {
-  const project = localStorage.getItem(projectKey)
+const createTodo = (e) => {
   const dom = domComponents()
+  const projectKey = dom.newTodo.rel
+  const project = localStorage.getItem(projectKey)
   const title = dom.title.value
   const description = dom.description.value
   const dueDate = dom.dueDate.value
@@ -37,17 +39,46 @@ const deleteTodo = (e) =>  {
   // borrar al abuelo
   // ELEMINARLO DE LOCAL STORAGE
   // 1. como sabemos de que projecto es
-  let data = localStorage
-  for(var key in data){
-    var project = data[key]
-    project.getTodos.forEach((item, i) => {
-      if (item.title === title) {
-        let newProject = project.removeTodo(i)
-        localStorage(key, newProject)
-        console.log(newProject);
-      }
-    });
-  }
+  // let data = localStorage
+  // for(var key in data){
+  //   var project = data[key]
+  //   project.getTodos.forEach((item, i) => {
+  //     if (item.title === title) {
+  //       let newProject = project.removeTodo(i)
+  //       localStorage(key, newProject)
+  //       console.log(newProject);
+  //     }
+  //   });
+  // }
+  const dom = domComponents()
+  const index = document.querySelector('#remove')
+  const projectKey = dom.newTodo.rel
+  const project = localStorage.getItem(projectKey)
+  project.removeTodo(index.rel)
+  localStorage.setItem(projectKey, project)
+  const listItem = index.parentNode.parentNode
+  dom.todos.removeChild(listItem)
 }
 
-export default createProject
+const updateButtonRel = (e) => {
+  const projectName = e.target.value
+  const dom = domComponents()
+  dom.newTodo.rel = projectName
+}
+
+const switchStatus = (e) => {
+  const dom = domComponents()
+  const index = e.target.rel
+  const projectKey = dom.newTodo.rel
+  const project = localStorage.getItem(projectKey)
+  project.getTodos()[index].changeStatus()
+}
+
+export default {
+  createProject,
+  createTodo,
+  deleteProject,
+  deleteTodo,
+  switchStatus,
+  updateButtonRel
+}

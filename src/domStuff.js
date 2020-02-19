@@ -30,7 +30,7 @@ function renderObject(objectName) {
 
 function renderTodos(todos) {
   const todosParent = domComponents().todos
-  todos.forEach((todo) => {
+  todos.forEach((todo, i) => {
     const li = document.createElement('li')
     const div = document.createElement('div')
     const remove = document.createElement('button')
@@ -41,8 +41,10 @@ function renderTodos(todos) {
     p.textContent = todo.description
     remove.id = 'remove'
     remove.textContent = 'Delete'
+    remove.rel = i
     const status = document.createElement('button')
     status.id = 'status'
+    status.rel = i
     status.textContent = 'done'
     const details = document.createElement('div')
     details.addClass('todo-details')
