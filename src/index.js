@@ -1,4 +1,11 @@
 import './style.css'
-import objects from './objects.js'
 import logic from './logic.js'
-import domComponents from './domStuff.js'
+import dom from './domStuff.js'
+
+const domElements = dom.domComponents()
+domElements.newProject.addEventListener('click', (e) => {
+  let title = domElements.projectTitle.value
+  logic.createProject(title)
+  domElements.projectTitle.value = ""
+  e.preventDefault()
+})

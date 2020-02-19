@@ -1,16 +1,15 @@
-const createProject = () => {
-  const dom = domComponents()
-  // Retrieve title from input value
-  const title = dom.projectTitle.value
+import objects from './objects.js'
+import dom from './domStuff.js'
+
+const createProject = (title) => {
   const project = objects.project(title)
   console.log(project)
   dom.renderObject(title)
   localStorage.setItem(title, project)
- 
 }
 
 const createTodo = (e) => {
-  const dom = domComponents()
+  const dom = dom.domComponents()
   const projectKey = dom.newTodo.rel
   const project = localStorage.getItem(projectKey)
   const title = dom.title.value

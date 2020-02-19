@@ -1,8 +1,8 @@
 const domComponents = () => {
- const newProject = document.getElementById('new-project')
- const newTodo = document.getElementById('new-todo')
- const projects = document.getElementById('projects')
- const todos = document.getElementById('todos')
+ let newProject = document.getElementById('new-project')
+ let newTodo = document.getElementById('new-todo')
+ let projects = document.getElementById('projects')
+ let todos = document.getElementById('todos')
  let projectTitle = document.querySelector('input[name="project-title"]')
  let title = document.querySelector('input[name="title"]')
  let description = document.querySelector('input[name="description"]')
@@ -21,11 +21,12 @@ const domComponents = () => {
  }
 };
 
-// Renders
 
 function renderObject(objectName) {
+  var node = document.createElement("li");
   const objectParent = domComponents().projects
-  objectParent.appendChild("li").addClass("project-item").textContent = objectName
+  node.textContent = objectName
+  objectParent.appendChild(node).classList.add("project-item")
 }
 
 function renderTodos(todos) {
