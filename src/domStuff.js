@@ -34,8 +34,7 @@ function renderTodos(todos) {
     const li = document.createElement('li')
     const div = document.createElement('div')
     const remove = document.createElement('button')
-    const h2 = document.createElement('h2')
-    h2.addClass('todo-title')
+    const h2 = document.createElement('h2').addClass('todo-title')
     h2.textContent = todo.title
     const p = document.createElement('p')
     p.addClass('todo-description')
@@ -57,6 +56,8 @@ function renderTodos(todos) {
     details.appendChild(priority)
     div.appendChild(remove)
     div.appendChild(status)
+    li.appendChild(h2)
+    li.appendChild(details)
     li.appendChild(div).addClass('todo-item')
     todosParent.appendChild(li)
   });
