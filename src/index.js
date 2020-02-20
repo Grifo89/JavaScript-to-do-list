@@ -10,6 +10,8 @@ domElements.newProject.addEventListener('click', (e) => {
     logic.createProject(title)
     domElements.projectTitle.value = ""
     domElements.newTodo.rel = title
+    dom.clearList()
+    e.preventDefault()
   } else {
     alert('You should provide a project title')
   }

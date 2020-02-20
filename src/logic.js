@@ -3,7 +3,6 @@ import dom from './domStuff.js'
 
 const createProject = (title) => {
   const project = objects.project(title)
-  console.log(project)
   dom.renderObject(title)
   localStorage.setItem(title, JSON.stringify([]))
 }
@@ -11,21 +10,15 @@ const createProject = (title) => {
 const createTodo = (e) => {
   const document = dom.domComponents()
   const projectKey = document.newTodo.rel
-  console.log(projectKey)
   const todos = JSON.parse(localStorage.getItem(projectKey))
-  console.log(todos)
   const title = document.title.value
   const description = document.description.value
   const dueDate = document.dueDate.value
   const priority = document.select.options[document.select.options.selectedIndex].value
-
   const todo = objects.todos(title, description, dueDate, priority).getTodo()
-  console.log(todo)
   todos.push(todo)
-  dom.renderTodos(todo)
-  console.log(todos)
   localStorage.setItem(projectKey, JSON.stringify(todos))
-  
+  dom.renderTodos(todo)
 }
 
 const deleteProject = (e) => {

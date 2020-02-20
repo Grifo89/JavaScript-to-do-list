@@ -26,29 +26,55 @@ function renderObject(objectName) {
   var node = document.createElement("li");
   const objectParent = domComponents().projects
   node.textContent = objectName
+  node.addEventListener('click', (e)=>{
+    let projectKey = e.target.textContent
+    let todos = JSON.parse(localStorage.getItem(projectKey))
+    clearList()
+    todos.forEach((item) => {
+      renderTodos(item)
+    });
+
+  })
   objectParent.appendChild(node).classList.add("project-item")
 }
 
 function renderTodos(todo) {
-  console.log(todo)
+  const projectKey = domComponents().newTodo.rel
   const todosParent = domComponents().todos
   const li = document.createElement('li')
-  console.log(li)
   const div = document.createElement('div')
   const remove = document.createElement('button')
+  const completed = document.createElement('span')
+  remove.addEventListener('click', (e) =>  {
+    let todos = JSON.parse(localStorage.getItem(projectKey))
+    let todosP = todos.filter(todo =>  todo.title !== e.target.parentNode.previousElementSibling.previousElementSibling.previousElementSibling.textContent)
+    clearList()
+    renderTodoList(todosP)
+    localStorage.setItem(projectKey, JSON.stringify(todosP))
+  })
   const h2 = document.createElement('h2')
   h2.classList.add('todo-title')
   h2.textContent = todo.title
-  console.log(h2)
   const p = document.createElement('p')
   p.classList.add('todo-description')
   p.textContent = todo.description
-  remove.id = 'remove'
+  remove.classList.add('remove')
   remove.textContent = 'Delete'
-  // remove.rel = i
   const status = document.createElement('button')
-  status.id = 'status'
-  // status.rel = i
+  status.addEventListener('click', (e)=>{
+    let todos = JSON.parse(localStorage.getItem(projectKey))
+    let index
+    todos.forEach((todo, i) =>  {
+      if (todo.title === e.target.parentNode.previousElementSibling.previousElementSibling.previousElementSibling.textContent) {
+        index = i
+      }
+    })
+    todos[index].completed = true
+    clearList()
+    renderTodoList(todos)
+    localStorage.setItem(projectKey, JSON.stringify(todos))
+  })
+  status.classList.add('status')
   status.textContent = 'done'
   const details = document.createElement('div')
   details.classList.add('todo-details')
@@ -56,10 +82,17 @@ function renderTodos(todo) {
   date.classList.add('due-date')
   date.textContent = todo.dueDate
   const priority = document.createElement('span')
+  completed.classList.add('completed')
   priority.classList.add('priority')
   priority.textContent = todo.priority
   details.appendChild(date)
   details.appendChild(priority)
+  if (todo.completed) {
+    completed.textContent = "Done"
+  } else {
+    completed.textContent = "Missing"
+  }
+  details.appendChild(completed)
   div.appendChild(remove)
   div.appendChild(status)
   li.appendChild(h2)
@@ -69,8 +102,27 @@ function renderTodos(todo) {
   todosParent.appendChild(li)
 }
 
+const clearList = () => {
+  if (domComponents().todos.childNodes) {
+    let child = domComponents().todos.lastElementChild
+    while (child) {
+      domComponents().todos.removeChild(child)
+      child = domComponents().todos.lastElementChild
+    }
+  }
+}
+
+const renderTodoList = (todos) =>{
+  todos.forEach((item) => {
+    if (item) {
+      renderTodos(item)
+    }
+  });
+}
+
 export default {
   domComponents,
   renderObject,
-  renderTodos
+  renderTodos,
+  clearList
 }
