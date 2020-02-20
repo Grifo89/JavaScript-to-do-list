@@ -5,20 +5,27 @@ const createProject = (title) => {
   const project = objects.project(title)
   console.log(project)
   dom.renderObject(title)
-  localStorage.setItem(title, project)
+  localStorage.setItem(title, JSON.stringify([]))
 }
 
 const createTodo = (e) => {
-  const dom = dom.domComponents()
-  const projectKey = dom.newTodo.rel
-  const project = localStorage.getItem(projectKey)
-  const title = dom.title.value
-  const description = dom.description.value
-  const dueDate = dom.dueDate.value
-  const priority = dom.select.options[select.selectedIndex].value
-  const todo = todos(title, description, dueDate, priority)
-  project.pushTodo(todo)
-  localStorage.setItem(projectKey, project)
+  const document = dom.domComponents()
+  const projectKey = document.newTodo.rel
+  console.log(projectKey)
+  const todos = JSON.parse(localStorage.getItem(projectKey))
+  console.log(todos)
+  const title = document.title.value
+  const description = document.description.value
+  const dueDate = document.dueDate.value
+  const priority = document.select.options[document.select.options.selectedIndex].value
+
+  const todo = objects.todos(title, description, dueDate, priority).getTodo()
+  console.log(todo)
+  todos.push(todo)
+  dom.renderTodos(todo)
+  console.log(todos)
+  localStorage.setItem(projectKey, JSON.stringify(todos))
+  
 }
 
 const deleteProject = (e) => {
@@ -26,7 +33,7 @@ const deleteProject = (e) => {
   let parent = e.parentNode
   let title = p.target.previousSibling.value
   grantParent.removeChild(parent)
-  lacalStorage.removeItem(title)
+  localStorage.removeItem(title)
 }
 
 const deleteTodo = (e) =>  {

@@ -1,19 +1,7 @@
 const project = (name) => {
-  let todos = []
-  const pushTodo = (todo) => {
-    todos.push(todo)
-  }
-  const removeTodo = (index) => {
-    todos = todos.filter(todo =>  todo != todos[index]);
-  }
   const getName = () => name
-  const getTodos = () => todos
-
   return {
-    pushTodo,
-    getName,
-    getTodos,
-    removeTodo
+    getName
   }
 }
 

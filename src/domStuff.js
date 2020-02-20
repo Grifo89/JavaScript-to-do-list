@@ -29,41 +29,44 @@ function renderObject(objectName) {
   objectParent.appendChild(node).classList.add("project-item")
 }
 
-function renderTodos(todos) {
+function renderTodos(todo) {
+  console.log(todo)
   const todosParent = domComponents().todos
-  todos.forEach((todo, i) => {
-    const li = document.createElement('li')
-    const div = document.createElement('div')
-    const remove = document.createElement('button')
-    const h2 = document.createElement('h2').addClass('todo-title')
-    h2.textContent = todo.title
-    const p = document.createElement('p')
-    p.addClass('todo-description')
-    p.textContent = todo.description
-    remove.id = 'remove'
-    remove.textContent = 'Delete'
-    remove.rel = i
-    const status = document.createElement('button')
-    status.id = 'status'
-    status.rel = i
-    status.textContent = 'done'
-    const details = document.createElement('div')
-    details.addClass('todo-details')
-    const date = document.createElement('span')
-    date.addClass('due-date')
-    date.textContent = todo.dueDate
-    const priority = document.createElement('span')
-    priority.addClass('priority')
-    priority.textContent = todo.priority
-    details.appendChild(date)
-    details.appendChild(priority)
-    div.appendChild(remove)
-    div.appendChild(status)
-    li.appendChild(h2)
-    li.appendChild(details)
-    li.appendChild(div).addClass('todo-item')
-    todosParent.appendChild(li)
-  });
+  const li = document.createElement('li')
+  console.log(li)
+  const div = document.createElement('div')
+  const remove = document.createElement('button')
+  const h2 = document.createElement('h2')
+  h2.classList.add('todo-title')
+  h2.textContent = todo.title
+  console.log(h2)
+  const p = document.createElement('p')
+  p.classList.add('todo-description')
+  p.textContent = todo.description
+  remove.id = 'remove'
+  remove.textContent = 'Delete'
+  // remove.rel = i
+  const status = document.createElement('button')
+  status.id = 'status'
+  // status.rel = i
+  status.textContent = 'done'
+  const details = document.createElement('div')
+  details.classList.add('todo-details')
+  const date = document.createElement('span')
+  date.classList.add('due-date')
+  date.textContent = todo.dueDate
+  const priority = document.createElement('span')
+  priority.classList.add('priority')
+  priority.textContent = todo.priority
+  details.appendChild(date)
+  details.appendChild(priority)
+  div.appendChild(remove)
+  div.appendChild(status)
+  li.appendChild(h2)
+  li.appendChild(p)
+  li.appendChild(details)
+  li.appendChild(div).classList.add('todo-item')
+  todosParent.appendChild(li)
 }
 
 export default {
