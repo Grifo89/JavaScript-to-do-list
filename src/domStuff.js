@@ -27,13 +27,11 @@ function renderObject(objectName) {
   const objectParent = domComponents().projects
   node.textContent = objectName
   node.addEventListener('click', (e)=>{
-    let projectKey = e.target.textContent
-    let todos = JSON.parse(localStorage.getItem(projectKey))
+    let projectKeyObject = e.target.textContent
+    let todos = JSON.parse(localStorage.getItem(projectKeyObject))
     clearList()
-    todos.forEach((item) => {
-      renderTodos(item)
-    });
-
+    renderTodoList(todos)
+    e.preventDefault()
   })
   objectParent.appendChild(node).classList.add("project-item")
 }
@@ -51,6 +49,7 @@ function renderTodos(todo) {
     clearList()
     renderTodoList(todosP)
     localStorage.setItem(projectKey, JSON.stringify(todosP))
+    e.preventDefault()
   })
   const h2 = document.createElement('h2')
   h2.classList.add('todo-title')
@@ -73,6 +72,7 @@ function renderTodos(todo) {
     clearList()
     renderTodoList(todos)
     localStorage.setItem(projectKey, JSON.stringify(todos))
+    e.preventDefault()
   })
   status.classList.add('status')
   status.textContent = 'done'
