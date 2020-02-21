@@ -2,7 +2,7 @@ import objects from './objects.js'
 import dom from './domStuff.js'
 
 const createProject = (title) => {
-  const project = objects.project(title)
+  objects.project(title)
   dom.renderObject(title)
   localStorage.setItem(title, JSON.stringify([]))
 }
@@ -30,25 +30,6 @@ const deleteProject = (e) => {
 }
 
 const deleteTodo = (e) =>  {
-  // var title
-  // ELIMINARLO DEL DOM
-  // identicar el boton
-  // traer al abuelo
-  // trair al bisabuelo
-  // borrar al abuelo
-  // ELEMINARLO DE LOCAL STORAGE
-  // 1. como sabemos de que projecto es
-  // let data = localStorage
-  // for(var key in data){
-  //   var project = data[key]
-  //   project.getTodos.forEach((item, i) => {
-  //     if (item.title === title) {
-  //       let newProject = project.removeTodo(i)
-  //       localStorage(key, newProject)
-  //       console.log(newProject);
-  //     }
-  //   });
-  // }
   const dom = domComponents()
   const index = document.querySelector('#remove')
   const projectKey = dom.newTodo.rel
@@ -59,10 +40,8 @@ const deleteTodo = (e) =>  {
   dom.todos.removeChild(listItem)
 }
 
-const updateButtonRel = (e) => {
-  const projectName = e.target.value
-  const dom = domComponents()
-  dom.newTodo.rel = projectName
+const updateButtonRel = (projectName) => {
+  dom.domComponents().newTodo.rel = projectName
 }
 
 const switchStatus = (e) => {
@@ -73,11 +52,29 @@ const switchStatus = (e) => {
   project.getTodos()[index].changeStatus()
 }
 
+const init = () => {
+  const defaultListName = 'default'
+  const defaultList = localStorage.getItem(defaultListName)
+  if (defaultList) {
+    console.log('exists');
+    const todos = JSON.parse(defaultList)
+    dom.renderObject(defaultListName)
+    dom.renderTodoList(todos)
+  } else {
+    createProject(defaultListName)
+  }
+  updateButtonRel(defaultListName)
+}
+
+const renderProjects = () => {
+
+}
+
 export default {
   createProject,
   createTodo,
   deleteProject,
   deleteTodo,
   switchStatus,
-  updateButtonRel
+  init
 }

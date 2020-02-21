@@ -23,11 +23,14 @@ const domComponents = () => {
 
 
 function renderObject(objectName) {
-  var node = document.createElement("li");
+  const node = document.createElement("li");
+  node.classList.add('project-title')
   const objectParent = domComponents().projects
   node.textContent = objectName
-  node.addEventListener('click', (e)=>{
+  node.addEventListener('click', (e) => {
+    console.log(e.target.textContent);
     let projectKeyObject = e.target.textContent
+    domComponents().newTodo.rel = projectKeyObject
     let todos = JSON.parse(localStorage.getItem(projectKeyObject))
     clearList()
     renderTodoList(todos)
@@ -124,5 +127,6 @@ export default {
   domComponents,
   renderObject,
   renderTodos,
-  clearList
+  clearList,
+  renderTodoList
 }
