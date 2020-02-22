@@ -1,0 +1,30 @@
+body {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+}
+
+h1 {
+  width: 100%;
+  text-align: center;
+}
+
+.container {
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+#list-container, #todos-container {
+  border-radius: 5px;
+  background-color: #e3e3e3;
+  padding: 15px;
+}
+#list-container {
+  width: 20%;
+  margin-right: 30px;
+}
+
+#todos-container {
+  width: 50%;
+}

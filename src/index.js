@@ -1,4 +1,4 @@
-import './style.css'
+// import './style.css'
 import logic from './logic.js'
 import dom from './domStuff.js'
 import objects from './objects.js'
