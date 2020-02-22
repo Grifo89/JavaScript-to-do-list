@@ -99,7 +99,10 @@ function renderTodos(todo) {
   edit.addEventListener('click', () => {
     domComponents().modal.style.display = 'block'
     domComponents().save.rel = projectKey
-    domComponents().save.classList.add(todo.title)
+    domComponents().save.classList.add(todo.title.replace(/\s/g, ''))
+    domComponents().editTitle.value === ""
+    domComponents().editDescription.value === ""
+    domComponents().editDueDate.value === ""
 
   })
   const details = document.createElement('div')

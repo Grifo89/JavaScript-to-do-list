@@ -25,6 +25,7 @@ let init = (function() {
 
   let todos = JSON.parse(localStorage.getItem(defaultProject))
   dom.renderTodoList(todos)
+  dom.domComponents().newTodo.rel = "defaultProject"
 
 }());
 

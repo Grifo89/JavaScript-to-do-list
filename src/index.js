@@ -1,4 +1,3 @@
-// import './style.css'
 import logic from './logic.js'
 import dom from './domStuff.js'
 import objects from './objects.js'
@@ -35,9 +34,9 @@ domElements.save.addEventListener('click', (e) => {
   let todos = JSON.parse(localStorage.getItem(key))
   let index = null
   todos.forEach((item, i) => {
-    if (e.target.classList[0] === item.title) {
+    if (e.target.classList[0] === item.title.replace(/\s/g, '')) {
       index = i
-      domElements.save.classList.remove(item.title)
+      domElements.save.classList.remove(item.title.replace(/\s/g, ''))
     }
   });
   todos[index].title = domElements.editTitle.value === ""?todos[index].title:domElements.editTitle.value
@@ -48,8 +47,5 @@ domElements.save.addEventListener('click', (e) => {
   dom.renderTodoList(todos)
   localStorage.setItem(key, JSON.stringify(todos))
   domElements.modal.style.display = 'none'
-  domElements.editTitle.value === ""
-  domElements.editDescription.value === ""
-  domElements.editDueDate.value === ""
   e.preventDefault()
 })

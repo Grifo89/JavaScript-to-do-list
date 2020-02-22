@@ -4,8 +4,7 @@
   "description": "This is a project proposed by Odin Project https://www.theodinproject.com/courses/javascript/lessons/todo-list",
   "private": true,
   "scripts": {
-    "build": "webpack --watch",
-    "start": "webpack-dev-server --open"
+    "build": "webpack --watch"
   },
   "repository": {
     "type": "git",

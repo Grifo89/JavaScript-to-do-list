@@ -19,6 +19,9 @@ const createTodo = (e) => {
   todos.push(todo)
   localStorage.setItem(projectKey, JSON.stringify(todos))
   dom.renderTodos(todo)
+  document.title.value = ""
+  document.description.value = ""
+  document.dueDate.value = ""
 }
 
 const deleteProject = (e) => {
