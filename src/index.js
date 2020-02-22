@@ -2,9 +2,10 @@ import './style.css'
 import logic from './logic.js'
 import dom from './domStuff.js'
 import objects from './objects.js'
+import init from './seed.js'
 
 const domElements = dom.domComponents()
-logic.init()
+
 domElements.newProject.addEventListener('click', (e) => {
   let title = domElements.projectTitle.value
   if (title) {

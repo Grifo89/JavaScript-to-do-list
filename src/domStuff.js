@@ -40,7 +40,7 @@ function renderObject(objectName) {
 }
 
 function renderTodos(todo) {
-  const projectKey = domComponents().newTodo.rel
+  const projectKey = domComponents().newTodo.rel? domComponents().newTodo.rel : "defaultProject"
   const todosParent = domComponents().todos
   const li = document.createElement('li')
   const div = document.createElement('div')

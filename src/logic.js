@@ -40,10 +40,6 @@ const deleteTodo = (e) =>  {
   dom.todos.removeChild(listItem)
 }
 
-const updateButtonRel = (projectName) => {
-  dom.domComponents().newTodo.rel = projectName
-}
-
 const switchStatus = (e) => {
   const dom = domComponents()
   const index = e.target.rel
@@ -52,29 +48,11 @@ const switchStatus = (e) => {
   project.getTodos()[index].changeStatus()
 }
 
-const init = () => {
-  const defaultListName = 'default'
-  const defaultList = localStorage.getItem(defaultListName)
-  if (defaultList) {
-    console.log('exists');
-    const todos = JSON.parse(defaultList)
-    dom.renderObject(defaultListName)
-    dom.renderTodoList(todos)
-  } else {
-    createProject(defaultListName)
-  }
-  updateButtonRel(defaultListName)
-}
-
-const renderProjects = () => {
-
-}
 
 export default {
   createProject,
   createTodo,
   deleteProject,
   deleteTodo,
-  switchStatus,
-  init
+  switchStatus
 }
