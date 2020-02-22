@@ -21,6 +21,10 @@ const createTodo = (e) => {
   dom.renderTodos(todo)
 }
 
+const updateTodo = () => {
+
+}
+
 const deleteProject = (e) => {
   let grantParent = e.parentNode.parentNode
   let parent = e.parentNode
@@ -58,12 +62,13 @@ const init = () => {
   if (defaultList) {
     console.log('exists');
     const todos = JSON.parse(defaultList)
+    updateButtonRel(defaultListName)
     dom.renderObject(defaultListName)
     dom.renderTodoList(todos)
   } else {
+    updateButtonRel(defaultListName)
     createProject(defaultListName)
   }
-  updateButtonRel(defaultListName)
 }
 
 const renderProjects = () => {
