@@ -8,6 +8,13 @@ const domComponents = () => {
  let description = document.querySelector('input[name="description"]')
  let dueDate = document.querySelector('input[name="due-date"]')
  let select = document.querySelector('select[name="priority"]')
+ let modal = document.querySelector('.modal')
+ let editTitle = document.querySelector('input[name="title-edit"]')
+ let editDescription = document.querySelector(' input[name="description-edit"]')
+ let editDueDate = document.querySelector('input[name="due-date-edit"]')
+ let editSelect = document.querySelector('select[name="priority-edit"]')
+ let save = document.querySelector('#save-edit')
+ let cancel = document.querySelector('#cancel-edit')
  return {
    newProject,
    newTodo,
@@ -17,7 +24,14 @@ const domComponents = () => {
    description,
    dueDate,
    select,
-   projectTitle
+   projectTitle,
+   modal,
+   editTitle,
+   editDescription,
+   editDueDate,
+   editSelect,
+   save,
+   cancel
  }
 };
 
@@ -45,6 +59,7 @@ function renderTodos(todo) {
   const li = document.createElement('li')
   const div = document.createElement('div')
   const remove = document.createElement('button')
+  const edit = document.createElement('button')
   const completed = document.createElement('span')
   remove.addEventListener('click', (e) =>  {
     let todos = JSON.parse(localStorage.getItem(projectKey))
@@ -54,14 +69,14 @@ function renderTodos(todo) {
     localStorage.setItem(projectKey, JSON.stringify(todosP))
     e.preventDefault()
   })
+  remove.classList.add('remove')
+  remove.textContent = 'Delete'
   const h2 = document.createElement('h2')
   h2.classList.add('todo-title')
   h2.textContent = todo.title
   const p = document.createElement('p')
   p.classList.add('todo-description')
   p.textContent = todo.description
-  remove.classList.add('remove')
-  remove.textContent = 'Delete'
   const status = document.createElement('button')
   status.addEventListener('click', (e)=>{
     let todos = JSON.parse(localStorage.getItem(projectKey))
@@ -78,7 +93,15 @@ function renderTodos(todo) {
     e.preventDefault()
   })
   status.classList.add('status')
-  status.textContent = 'done'
+  status.textContent = 'Done'
+  edit.classList.add('edit')
+  edit.textContent = 'Edit'
+  edit.addEventListener('click', () => {
+    domComponents().modal.style.display = 'block'
+    domComponents().save.rel = projectKey
+    domComponents().save.classList.add(todo.title)
+
+  })
   const details = document.createElement('div')
   details.classList.add('todo-details')
   const date = document.createElement('span')
@@ -98,6 +121,7 @@ function renderTodos(todo) {
   details.appendChild(completed)
   div.appendChild(remove)
   div.appendChild(status)
+  div.appendChild(edit)
   li.appendChild(h2)
   li.appendChild(p)
   li.appendChild(details)
