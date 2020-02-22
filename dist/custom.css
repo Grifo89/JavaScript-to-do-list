@@ -51,3 +51,8 @@ h1 {
   border: 1px solid #888;
   width: 50%;
 }
+
+.project-title{
+  cursor: pointer;
+  list-style-type: none;
+}
