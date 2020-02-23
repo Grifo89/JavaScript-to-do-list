@@ -47,9 +47,7 @@ const _addListenerToFormChild = (inputElement, targetElement) => {
 }
 
 function renderTodos(todo) {
-  const projectKey = domComponents().newTodo.rel
-  console.log(projectKey);
-  
+  const projectKey = domComponents().newTodo.rel? domComponents().newTodo.rel : "defaultProject"
   const todosParent = domComponents().todos
   const li = document.createElement('li')
   const form = document.createElement('form')
