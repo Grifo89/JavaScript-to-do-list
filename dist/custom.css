@@ -1,3 +1,5 @@
+
+
 body {
   font-family: 'Open Sans', sans-serif;
   font-size: 16px;
@@ -6,6 +8,23 @@ body {
 h1 {
   width: 100%;
   text-align: center;
+}
+
+ul {
+  margin: 20px 0 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+#projects {
+  background-color: #fff;
+  border-radius: 5px;
+}
+
+#projects li {
+  border-bottom: 1px solid #5f4c4c;
+  padding: 10px 0 10px 5px;
+  text-transform: uppercase;
 }
 
 .container {
@@ -17,17 +36,90 @@ h1 {
 }
 #list-container, #todos-container {
   border-radius: 5px;
-  background-color: #e3e3e3;
-  padding: 15px;
+  padding: 15px 0;
 }
 #list-container {
   width: 20%;
   margin-right: 30px;
 }
 
+#projects .selected {
+  background-color: #161a42;
+  border-bottom: none;
+  color: #00d4f0;
+}
+
+form {
+  padding: 10px;
+}
 #todos-container {
   width: 50%;
 }
+
+#todos li {
+  background-color: #fff;
+}
+
+.todo-title {
+  color: #503939;
+  font-size: 20px;
+}
+
+.todo-description {
+  font-size: 16px;
+  color: #4e4e4e;
+  line-height: 1.5;
+}
+
+.todo-details {
+  font-size: 13px;
+}
+
+.priority, .completed {
+  padding-left: 20px;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+.priority {
+  color: #fa1955;
+}
+
+#todos li h2, #todos li p, .todo-details, .todo-item {
+  padding-left: 15px;
+}
+
+.high {
+ background-color: #fa1955;
+}
+
+.medium {
+  background-color: #f2d024
+}
+
+.low {
+  background-color: #5d9cf5;
+}
+
+.done {
+  text-decoration: line-through;
+}
+
+/* inputs */
+input, textarea {
+  margin-top: 10px;
+}
+input[type='text'], textarea {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 10px;
+}
+
+label {
+  font-size: 16px;
+  color: rgba(0,0,0,.65);
+
+}
+
 
 /* The Modal (background) */
 .modal {

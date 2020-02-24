@@ -1,11 +1,24 @@
 import objects from './objects';
 import dom from './domStuff';
 
+const projectExists = (title) => {
+  const data = localStorage;
+  let exists = true;
+  if (!data[title]) {
+    exists = false;
+  }
+  return exists;
+};
+
 const createProject = (title) => {
   objects.project(title);
-  dom.renderObject(title);
-  localStorage.setItem(title, JSON.stringify([]));
+  const exists = projectExists(title);
+  if (!exists) {
+    dom.renderObject(title);
+    localStorage.setItem(title, JSON.stringify([]));
+  }
 };
+
 
 const createTodo = () => {
   const document = dom.domComponents();

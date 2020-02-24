@@ -10,7 +10,7 @@ domComponents = () => {
   const todos = document.getElementById('todos');
   const projectTitle = document.querySelector('input[name="project-title"]');
   const title = document.querySelector('input[name="title"]');
-  const description = document.querySelector('input[name="description"]');
+  const description = document.querySelector('textarea[name="description"]');
   const dueDate = document.querySelector('input[name="due-date"]');
   const select = document.querySelector('select[name="priority"]');
   const modal = document.querySelector('.modal');
@@ -50,6 +50,7 @@ const clearList = () => {
   }
 };
 
+
 function renderTodos(todo) {
   const projectKey = domComponents().newTodo.rel ? domComponents().newTodo.rel : 'defaultProject';
   const todosParent = domComponents().todos;
@@ -58,6 +59,9 @@ function renderTodos(todo) {
   const remove = document.createElement('button');
   const edit = document.createElement('button');
   const completed = document.createElement('span');
+  if (todo.completed) {
+    completed.classList.add('done');
+  }
   remove.addEventListener('click', (e) => {
     const todos = JSON.parse(localStorage.getItem(projectKey));
     const todosUpdated = removeTodo(e, todos);
@@ -68,6 +72,7 @@ function renderTodos(todo) {
   remove.textContent = 'Delete';
   const h2 = document.createElement('h2');
   h2.classList.add('todo-title');
+  h2.classList.add(`${todo.priority}`);
   h2.textContent = todo.title;
   const p = document.createElement('p');
   p.classList.add('todo-description');
@@ -118,6 +123,11 @@ function renderTodos(todo) {
   todosParent.appendChild(li);
 }
 
+const removeSiblingsClass = (siblings) => {
+  siblings.forEach(sibling => {
+    sibling.classList.remove('selected');
+  });
+};
 
 function renderObject(objectName) {
   const node = document.createElement('li');
@@ -125,6 +135,9 @@ function renderObject(objectName) {
   const objectParent = domComponents().projects;
   node.textContent = objectName;
   node.addEventListener('click', (e) => {
+    const siblings = Array.from(document.getElementsByClassName('project-title'));
+    removeSiblingsClass(siblings);
+    e.target.classList.add('selected');
     const projectKeyObject = e.target.textContent;
     domComponents().newTodo.rel = projectKeyObject;
     const todos = JSON.parse(localStorage.getItem(projectKeyObject));
