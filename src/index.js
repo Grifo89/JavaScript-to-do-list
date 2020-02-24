@@ -1,26 +1,40 @@
-import logic from './logic.js';
-import dom from './domStuff.js';
-import objects from './objects.js';
-import init from './seed.js';
+import logic from './logic';
+import dom from './domStuff';
+import './seed';
 
 const domElements = dom.domComponents();
+
+const alertExists = () => {
+  let exists = false;
+  const alert = document.querySelector('.red-alert p');
+  if (alert) {
+    exists = true;
+  }
+  return exists;
+};
 
 domElements.newProject.addEventListener('click', (e) => {
   const title = domElements.projectTitle.value;
   if (title) {
+    const exists = alertExists();
+    if (exists) {
+      const alertContainer = document.querySelector('.red-alert');
+      alertContainer.className.remove('.red-alert');
+    }
     logic.createProject(title);
     domElements.projectTitle.value = '';
     domElements.newTodo.rel = title;
     dom.clearList();
     e.preventDefault();
   } else {
-    alert('You should provide a project title');
+    const exists = alertExists();
+    if (!exists) dom.customAlert();
   }
   e.preventDefault();
 });
 
 domElements.newTodo.addEventListener('click', (e) => {
-  logic.createTodo(e);
+  logic.createTodo();
   e.preventDefault();
 });
 
@@ -42,7 +56,9 @@ domElements.save.addEventListener('click', (e) => {
   todos[index].title = domElements.editTitle.value === '' ? todos[index].title : domElements.editTitle.value;
   todos[index].description = domElements.editDescription.value === '' ? todos[index].description : domElements.editDescription.value;
   todos[index].dueDate = domElements.editDueDate.value === '' ? todos[index].dueDate : domElements.editDueDate.value;
-  todos[index].priority = domElements.editSelect.options[domElements.editSelect.options.selectedIndex].value === todos[index].priority ? todos[index].priority : domElements.editSelect.options[domElements.editSelect.options.selectedIndex].value;
+  const priorityOption = domElements.editSelect.options;
+  const priority = priorityOption[priorityOption.selectedIndex].value;
+  todos[index].priority = priority === todos[index].priority ? todos[index].priority : priority;
   dom.clearList();
   dom.renderTodoList(todos);
   localStorage.setItem(key, JSON.stringify(todos));

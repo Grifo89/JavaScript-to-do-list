@@ -1,5 +1,5 @@
-import objects from './objects.js';
-import dom from './domStuff.js';
+import objects from './objects';
+import dom from './domStuff';
 
 const createProject = (title) => {
   objects.project(title);
@@ -7,7 +7,7 @@ const createProject = (title) => {
   localStorage.setItem(title, JSON.stringify([]));
 };
 
-const createTodo = (e) => {
+const createTodo = () => {
   const document = dom.domComponents();
   const projectKey = document.newTodo.rel;
   const todos = JSON.parse(localStorage.getItem(projectKey));
@@ -24,42 +24,16 @@ const createTodo = (e) => {
   document.dueDate.value = '';
 };
 
-const updateTodo = () => {
-
-}
-
 const deleteProject = (e) => {
   const grantParent = e.parentNode.parentNode;
   const parent = e.parentNode;
-  const title = p.target.previousSibling.value;
+  const title = e.target.previousSibling.value;
   grantParent.removeChild(parent);
   localStorage.removeItem(title);
 };
-
-const deleteTodo = (e) => {
-  const dom = domComponents();
-  const index = document.querySelector('#remove');
-  const projectKey = dom.newTodo.rel;
-  const project = localStorage.getItem(projectKey);
-  project.removeTodo(index.rel);
-  localStorage.setItem(projectKey, project);
-  const listItem = index.parentNode.parentNode;
-  dom.todos.removeChild(listItem);
-};
-
-const switchStatus = (e) => {
-  const dom = domComponents();
-  const index = e.target.rel;
-  const projectKey = dom.newTodo.rel;
-  const project = localStorage.getItem(projectKey);
-  project.getTodos()[index].changeStatus();
-};
-
 
 export default {
   createProject,
   createTodo,
   deleteProject,
-  deleteTodo,
-  switchStatus,
 };

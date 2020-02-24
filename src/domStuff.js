@@ -1,4 +1,9 @@
-const domComponents = () => {
+let renderTodoList = null;
+let removeTodo = null;
+let completeTodo = null;
+let domComponents = null;
+
+domComponents = () => {
   const newProject = document.getElementById('new-project');
   const newTodo = document.getElementById('new-todo');
   const projects = document.getElementById('projects');
@@ -35,23 +40,15 @@ const domComponents = () => {
   };
 };
 
-
-function renderObject(objectName) {
-  const node = document.createElement('li');
-  node.classList.add('project-title');
-  const objectParent = domComponents().projects;
-  node.textContent = objectName;
-  node.addEventListener('click', (e) => {
-    console.log(e.target.textContent);
-    const projectKeyObject = e.target.textContent;
-    domComponents().newTodo.rel = projectKeyObject;
-    const todos = JSON.parse(localStorage.getItem(projectKeyObject));
-    clearList();
-    renderTodoList(todos);
-    e.preventDefault();
-  });
-  objectParent.appendChild(node).classList.add('project-item');
-}
+const clearList = () => {
+  if (domComponents().todos.childNodes) {
+    let child = domComponents().todos.lastElementChild;
+    while (child) {
+      domComponents().todos.removeChild(child);
+      child = domComponents().todos.lastElementChild;
+    }
+  }
+};
 
 function renderTodos(todo) {
   const projectKey = domComponents().newTodo.rel ? domComponents().newTodo.rel : 'defaultProject';
@@ -63,10 +60,8 @@ function renderTodos(todo) {
   const completed = document.createElement('span');
   remove.addEventListener('click', (e) => {
     const todos = JSON.parse(localStorage.getItem(projectKey));
-    const todosP = todos.filter(todo => todo.title !== e.target.parentNode.previousElementSibling.previousElementSibling.previousElementSibling.textContent);
-    clearList();
-    renderTodoList(todosP);
-    localStorage.setItem(projectKey, JSON.stringify(todosP));
+    const todosUpdated = removeTodo(e, todos);
+    localStorage.setItem(projectKey, JSON.stringify(todosUpdated));
     e.preventDefault();
   });
   remove.classList.add('remove');
@@ -80,16 +75,8 @@ function renderTodos(todo) {
   const status = document.createElement('button');
   status.addEventListener('click', (e) => {
     const todos = JSON.parse(localStorage.getItem(projectKey));
-    let index;
-    todos.forEach((todo, i) => {
-      if (todo.title === e.target.parentNode.previousElementSibling.previousElementSibling.previousElementSibling.textContent) {
-        index = i;
-      }
-    });
-    todos[index].completed = true;
-    clearList();
-    renderTodoList(todos);
-    localStorage.setItem(projectKey, JSON.stringify(todos));
+    const todosUpdated = completeTodo(e, todos);
+    localStorage.setItem(projectKey, JSON.stringify(todosUpdated));
     e.preventDefault();
   });
   status.classList.add('status');
@@ -100,9 +87,9 @@ function renderTodos(todo) {
     domComponents().modal.style.display = 'block';
     domComponents().save.rel = projectKey;
     domComponents().save.classList.add(todo.title.replace(/\s/g, ''));
-    domComponents().editTitle.value === '';
-    domComponents().editDescription.value === '';
-    domComponents().editDueDate.value === '';
+    domComponents().editTitle.value = '';
+    domComponents().editDescription.value = '';
+    domComponents().editDueDate.value = '';
   });
   const details = document.createElement('div');
   details.classList.add('todo-details');
@@ -131,17 +118,24 @@ function renderTodos(todo) {
   todosParent.appendChild(li);
 }
 
-const clearList = () => {
-  if (domComponents().todos.childNodes) {
-    let child = domComponents().todos.lastElementChild;
-    while (child) {
-      domComponents().todos.removeChild(child);
-      child = domComponents().todos.lastElementChild;
-    }
-  }
-};
 
-const renderTodoList = (todos) => {
+function renderObject(objectName) {
+  const node = document.createElement('li');
+  node.classList.add('project-title');
+  const objectParent = domComponents().projects;
+  node.textContent = objectName;
+  node.addEventListener('click', (e) => {
+    const projectKeyObject = e.target.textContent;
+    domComponents().newTodo.rel = projectKeyObject;
+    const todos = JSON.parse(localStorage.getItem(projectKeyObject));
+    clearList();
+    renderTodoList(todos);
+    e.preventDefault();
+  });
+  objectParent.appendChild(node).classList.add('project-item');
+}
+
+renderTodoList = (todos) => {
   todos.forEach((item) => {
     if (item) {
       renderTodos(item);
@@ -149,6 +143,39 @@ const renderTodoList = (todos) => {
   });
 };
 
+removeTodo = (e, todos) => {
+  const parent = e.target.parentNode;
+  const previousSibling = parent.previousElementSibling;
+  const title = previousSibling.previousElementSibling.previousElementSibling.textContent;
+  const todosUpdated = todos.filter(todo => todo.title !== title);
+  clearList();
+  renderTodoList(todosUpdated);
+  return todosUpdated;
+};
+
+completeTodo = (e, todos) => {
+  let index;
+  const parent = e.target.parentNode;
+  const previousSibling = parent.previousElementSibling;
+  const title = previousSibling.previousElementSibling.previousElementSibling.textContent;
+  todos.forEach((todo, i) => {
+    if (todo.title === title) {
+      index = i;
+    }
+  });
+  todos[index].completed = true;
+  clearList();
+  renderTodoList(todos);
+  return todos;
+};
+
+const customAlert = () => {
+  const alertContainer = document.querySelector('.alert');
+  alertContainer.classList.add('red-alert');
+  const alert = document.createElement('p');
+  alert.textContent = 'You should provide a project title';
+  alertContainer.appendChild(alert);
+};
 
 
 export default {
@@ -157,4 +184,5 @@ export default {
   renderTodos,
   clearList,
   renderTodoList,
+  customAlert,
 };

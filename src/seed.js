@@ -1,7 +1,6 @@
-import dom from './domStuff.js';
-import logic from './logic.js';
+import dom from './domStuff';
 
-const init = (function () {
+const init = (() => {
   const defaultProject = 'defaultProject';
 
   if (!localStorage.getItem('defaultProject')) {
@@ -22,7 +21,7 @@ const init = (function () {
 
   const data = localStorage;
 
-  for (let i = 0; i < data.length; i++) {
+  for (let i = 0; i < data.length; i += 1) {
     const key = data.key(i);
     dom.renderObject(key);
   }
@@ -30,6 +29,6 @@ const init = (function () {
   const todos = JSON.parse(localStorage.getItem(defaultProject));
   dom.renderTodoList(todos);
   dom.domComponents().newTodo.rel = 'defaultProject';
-}());
+})();
 
 export default init;
