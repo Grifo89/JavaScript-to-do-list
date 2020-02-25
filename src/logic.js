@@ -22,7 +22,7 @@ const createProject = (title) => {
 
 const createTodo = () => {
   const document = dom.domComponents();
-  if(document.title.value !== ""){
+  if (document.title.value !== '') {
     const projectKey = document.newTodo.rel;
     const todos = JSON.parse(localStorage.getItem(projectKey));
     const title = document.title.value;
@@ -36,9 +36,8 @@ const createTodo = () => {
     document.title.value = '';
     document.description.value = '';
     document.dueDate.value = '';
-    return 
   } else {
-    alert("You must provide a To Do title")
+    alert('You must provide a To Do title');
   }
 };
 
