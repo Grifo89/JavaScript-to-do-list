@@ -22,19 +22,24 @@ const createProject = (title) => {
 
 const createTodo = () => {
   const document = dom.domComponents();
-  const projectKey = document.newTodo.rel;
-  const todos = JSON.parse(localStorage.getItem(projectKey));
-  const title = document.title.value;
-  const description = document.description.value;
-  const dueDate = document.dueDate.value;
-  const priority = document.select.options[document.select.options.selectedIndex].value;
-  const todo = objects.todos(title, description, dueDate, priority).getTodo();
-  todos.push(todo);
-  localStorage.setItem(projectKey, JSON.stringify(todos));
-  dom.renderTodos(todo);
-  document.title.value = '';
-  document.description.value = '';
-  document.dueDate.value = '';
+  if(document.title.value !== ""){
+    const projectKey = document.newTodo.rel;
+    const todos = JSON.parse(localStorage.getItem(projectKey));
+    const title = document.title.value;
+    const description = document.description.value;
+    const dueDate = document.dueDate.value;
+    const priority = document.select.options[document.select.options.selectedIndex].value;
+    const todo = objects.todos(title, description, dueDate, priority).getTodo();
+    todos.push(todo);
+    localStorage.setItem(projectKey, JSON.stringify(todos));
+    dom.renderTodos(todo);
+    document.title.value = '';
+    document.description.value = '';
+    document.dueDate.value = '';
+    return 
+  } else {
+    alert("You must provide a To Do title")
+  }
 };
 
 const deleteProject = (e) => {
