@@ -37,7 +37,7 @@ const createTodo = () => {
     document.description.value = '';
     document.dueDate.value = '';
   } else {
-    alert('You must provide a To Do title');
+    alert('You must provide a To Do title ');
   }
 };
 
